@@ -6,36 +6,11 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:38:40 by witong            #+#    #+#             */
-/*   Updated: 2024/11/19 15:58:31 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/26 12:11:22 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int init(t_table *table)
-{
-	int	i;
-
-	table->philosophers = malloc(sizeof(t_philosopher) * table->philosopher_count);
-	table->forks = malloc(sizeof(pthread_mutex_t) * table->philosopher_count);
-	if (!table->philosophers || !table->forks)
-		return 1;
-	i = 0;
-	while (i < table->philosopher_count)
-	{
-		if (pthread_mutex_init(&(table->forks[i]), NULL) != 0)
-			return 1;
-		table->philosophers[i].id = i;
-		table->philosophers[i].meals_eaten = 0;
-		table->philosophers[i].last_meal_time = 0;
-		table->philosophers[i].table = table;
-		i++;
-	}
-	if (pthread_mutex_init(&(table->write_lock), NULL) != 0)
-		return 1;
-
-	return 0;
-}
 
 int parsing(t_table *table, char **av)
 {

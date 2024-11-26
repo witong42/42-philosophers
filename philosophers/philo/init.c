@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:21:53 by witong            #+#    #+#             */
-/*   Updated: 2024/11/19 16:36:32 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/26 12:00:50 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,20 @@ int init_philos(t_table *table)
 	return (0);
 }
 
-int init_forks(t_table *table)
+int init_mutex(t_table *table)
 {
 	int i;
 
-	table->forks = malloc(sizeof(pthread_mutex_t) * table->philosopher_count);
-	if (!table->forks)
+	table->mutex = malloc(sizeof(pthread_mutex_t) * table->philosopher_count);
+	if (!table->mutex)
 		return (1);
 	i = 0;
 	while (i < table->philosopher_count)
 	{
-		if (pthread_mutex_init(&(table->forks[i]), NULL) != 0) {
+		if (pthread_mutex_init(&(table->mutex[i]), NULL) != 0) {
 			while (--i >= 0)
-				pthread_mutex_destroy(&(table->forks[i]));
-			free(table->forks);
+				pthread_mutex_destroy(&(table->mutex[i]));
+			free(table->mutex);
 			return (1);
 		}
 		i++;
@@ -56,7 +56,7 @@ int init(t_table *table)
 {
 	if (init_philos(table) != 0)
 		return 1;
-	if (init_forks(table) != 0)
+	if (init_mutex(table) != 0)
 	{
 		cleanup(table);
 		return (1);
