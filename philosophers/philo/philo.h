@@ -35,13 +35,17 @@ typedef struct s_table
 	t_philo			*philos;
 }		t_table;
 
+// init.c
+int init(t_table *table);
 
 // routine.c
 
 
-// utils.c
+// utils_ft.c
 int	ft_atoi(const char *nptr);
 void cleanup(t_table *table);
 
+// utils_philo.c
+void	putstatus(char *str, t_philo philo);
 
 #endif

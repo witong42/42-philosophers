@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:11 by witong            #+#    #+#             */
-/*   Updated: 2024/11/26 14:55:48 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/26 15:54:03 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	create_threads(t_table *table)
 }
 
 for (int i = 0; i < philo_count; i++) {
-    pthread_join(threads[i], NULL);
+	pthread_join(threads[i], NULL);
 }
 
 int	philo_do(t_table *table)

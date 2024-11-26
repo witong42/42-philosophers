@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:02:34 by witong            #+#    #+#             */
-/*   Updated: 2024/11/26 12:02:53 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/26 15:53:50 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void cleanup(t_table *table)
 	if (table->forks)
 	{
 		i = 0;
-		while (i < table->philosopher_count)
+		while (i < table->philo_count)
 			pthread_mutex_destroy(&(table->forks[i++]));
 		free(table->forks);
 	}
-	if (table->philosophers)
-		free(table->philosophers);
+	if (table->philo)
+		free(table->philo);
 	pthread_mutex_destroy(&(table->write_lock));
 }

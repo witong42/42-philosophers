@@ -6,13 +6,11 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:46:31 by witong            #+#    #+#             */
-/*   Updated: 2024/11/26 15:35:19 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/26 15:53:25 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-putstatus()
 
 void	sleep_think(t_table *table)
 {
@@ -33,11 +31,13 @@ void	pick_forks(t_philo *philo)
 	pthread_mutex_lock(philo->left_fork);
 	putstatus(FORK, philo);
 }
+
 void	drop_forks(t_philo *philo)
 {
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 }
+
 void	eat(t_philo *philo)
 {
 	pick_forks(philo);
