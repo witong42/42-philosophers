@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:38:40 by witong            #+#    #+#             */
-/*   Updated: 2024/11/26 14:35:17 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/26 19:46:56 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ int	main(int ac, char **av)
 		return (1);
 	if (init(&table) != 0)
 		return (1);
-	if (routine(&table) != 0)
+	if (create_threads(&table) != 0)
 		return (1);
+	join_threads(&table);
 	cleanup(&table);
 	return (0);
 }
