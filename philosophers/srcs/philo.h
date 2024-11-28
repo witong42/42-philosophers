@@ -18,6 +18,7 @@ typedef struct s_philo
 	int				id;
 	long			last_meal_time;
 	int				meals_eaten;
+	int				running;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	struct s_table	*table;
@@ -30,8 +31,6 @@ typedef struct s_table
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			meals_required;
-	int			meals_eaten;
-	int			running;
 	pthread_t	*threads;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;
@@ -54,11 +53,11 @@ void	sleep_think(t_philo *philo);
 
 
 // utils_ft.c
-int	ft_atoi(const char *nptr);
-void cleanup(t_table *table);
+int		ft_atoi(const char *nptr);
+void	cleanup(t_table *table);
 
 // utils_philo.c
-long int	realtime(void);
+long	realtime(void);
 void	putstatus(char *str, t_philo *philo);
 
 #endif

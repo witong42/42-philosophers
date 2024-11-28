@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:21:53 by witong            #+#    #+#             */
-/*   Updated: 2024/11/26 20:34:03 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/28 11:39:29 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,12 @@ int init_table(t_table *table)
 		table->philo[i].meals_eaten = 0;
 		table->philo[i].last_meal_time = realtime();
 		table->philo[i].table = table;
+		table->philo[i].running = 1;
 		i++;
 	}
-	table->running = 1;
-	table->meals_eaten = 0;
 	table->threads = malloc(sizeof(pthread_t) * table->philo_count);
-    if (!table->threads)
-    {
-        free(table->philo);
-        return 1;
-    }
+	if (!table->threads)
+		return (cleanup(table), 1);
 	return (0);
 }
 
@@ -45,7 +41,7 @@ int init_forks(t_table *table)
 
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_count);
 	if (!table->forks)
-		return (1);
+		return (cleanup(table), 1);
 	i = 0;
 	while (i < table->philo_count)
 	{
@@ -71,7 +67,10 @@ int init_forks(t_table *table)
 int init(t_table *table)
 {
 	if (init_table(table) != 0)
-		return 1;
+	{
+		cleanup(table);
+		return (1);
+	}
 	if (init_forks(table) != 0)
 	{
 		cleanup(table);

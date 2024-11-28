@@ -1,7 +1,6 @@
-NAME	= philosophers
+NAME	= philo
 
-SRCS	= philo/philo.c philo/init.c philo/routine.c philo/actions.c philo/utils_ft.c philo/utils_philo.c
-
+SRCS	= srcs/philo.c srcs/init.c srcs/routine.c srcs/actions.c srcs/utils_ft.c srcs/utils_philo.c
 OBJS	= $(SRCS:%.c=%.o)
 
 CC		= gcc

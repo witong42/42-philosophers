@@ -6,13 +6,13 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:58:50 by witong            #+#    #+#             */
-/*   Updated: 2024/11/26 20:16:07 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/28 11:34:08 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long int	realtime(void)
+long	realtime(void)
 {
 	struct timeval	current_time;
 

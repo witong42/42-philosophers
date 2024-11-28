@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:46:31 by witong            #+#    #+#             */
-/*   Updated: 2024/11/26 20:35:51 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/28 11:17:35 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,15 @@ void	drop_forks(t_philo *philo)
 
 void eat(t_philo *philo)
 {
-    pthread_mutex_lock(&philo->table->write_lock);
-    putstatus(EAT, philo);
-    philo->last_meal_time = realtime();
-    philo->meals_eaten++;
-    if (philo->table->meals_required != -1
+	pthread_mutex_lock(&philo->table->write_lock);
+	putstatus(EAT, philo);
+	philo->last_meal_time = realtime();
+	philo->meals_eaten++;
+	if (philo->table->meals_required != -1
 			&& philo->meals_eaten >= philo->table->meals_required)
-    {
-        philo->table->meals_eaten++;
-        if (philo->table->meals_eaten >= philo->table->philo_count)
-        {
-            philo->table->running = 0;
-        }
-    }
-    pthread_mutex_unlock(&philo->table->write_lock);
-    usleep(philo->table->time_to_eat * 1000);
+		philo->running = 0;
+	pthread_mutex_unlock(&philo->table->write_lock);
+	usleep(philo->table->time_to_eat * 1000);
 }
 
 void	sleep_think(t_philo *philo)
