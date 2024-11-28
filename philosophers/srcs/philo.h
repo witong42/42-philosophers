@@ -34,7 +34,7 @@ typedef struct s_table
 	pthread_t	*threads;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;
-	t_philo			*philo;
+	struct s_philo	*philo;
 }		t_table;
 
 // init.c
@@ -50,7 +50,6 @@ void	pick_forks(t_philo *philo);
 void	drop_forks(t_philo *philo);
 void	eat(t_philo *philo);
 void	sleep_think(t_philo *philo);
-
 
 // utils_ft.c
 int		ft_atoi(const char *nptr);

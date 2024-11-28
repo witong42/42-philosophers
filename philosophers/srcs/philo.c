@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:38:40 by witong            #+#    #+#             */
-/*   Updated: 2024/11/26 19:46:56 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/28 14:17:51 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int parsing(t_table *table, char **av)
 		table->meals_required = ft_atoi(av[5]);
 	else
 		table->meals_required = -1;
-
 	return (0);
 }
 

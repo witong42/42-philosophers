@@ -6,13 +6,26 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:11 by witong            #+#    #+#             */
-/*   Updated: 2024/11/28 12:06:09 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/28 15:03:59 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void *routine(void *arg)
+/*
+int		monitoring(t_philo	*philo)
+{
+	if ()
+		return (1);
+	return (0);
+}
+void	*is_dead(void *arg)
+{
+
+}
+*/
+
+void	*routine(void *arg)
 {
 	t_philo *philo;
 
@@ -33,7 +46,6 @@ void *routine(void *arg)
 	return (NULL);
 }
 
-
 int	create_threads(t_table *table)
 {
 	int	i;
@@ -43,7 +55,7 @@ int	create_threads(t_table *table)
 	{
 		if (pthread_create(&table->threads[i], NULL, routine, &table->philo[i]) != 0)
 		{
-			printf("Error creating thread for philosopher %d\n", i + 1);
+			printf("Error creating threads %d\n", i + 1);
 			return (1);
 		}
 		i++;
