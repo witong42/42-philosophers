@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:46:31 by witong            #+#    #+#             */
-/*   Updated: 2024/11/28 11:17:35 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/28 16:41:26 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void eat(t_philo *philo)
 	philo->meals_eaten++;
 	if (philo->table->meals_required != -1
 			&& philo->meals_eaten >= philo->table->meals_required)
-		philo->running = 0;
+		philo->table->running = 0;
 	pthread_mutex_unlock(&philo->table->write_lock);
 	usleep(philo->table->time_to_eat * 1000);
 }

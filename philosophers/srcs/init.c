@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:21:53 by witong            #+#    #+#             */
-/*   Updated: 2024/11/28 11:39:29 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/28 15:46:40 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int init_table(t_table *table)
 		table->philo[i].meals_eaten = 0;
 		table->philo[i].last_meal_time = realtime();
 		table->philo[i].table = table;
-		table->philo[i].running = 1;
 		i++;
 	}
+	table->running = 1;
 	table->threads = malloc(sizeof(pthread_t) * table->philo_count);
 	if (!table->threads)
 		return (cleanup(table), 1);
