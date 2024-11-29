@@ -24,16 +24,34 @@ The thing is we have to prevent them from dying, so we have to avoid data races 
 
 A date race is when a thread is writing on a mutable object at the same time as another one is accessing it, it makes the data incoherent. A deadlock is when two threads seeks for the lock of each others but no one drops, both threads are therefore "blocked waiting".
 
+For this project we need to familiarize ourselves with threads and mutex.
+
+1. Threads
+
+Difference between processes (forks) and threads:
+
+A fork is creating a new process that copies all the elements of an old one, or parent. In a fork, memory and resources are isolated.
+
+
+
+2. Mutex
+
+
+
 ## Allowed Functions
 
 gettimeofday() is a function who takes a struct called timeval as follows and fill the tv_sec and tv_usec respectively:
 
-<code>
 struct timeval {
 	time_t	tv_sec;	/* seconds */
 	suseconds_t	tv_usec;	* microseconds */
 };
-</code>
+
+---
+
+usleep() suspend the execution of the thread it is in in microseconds. ! Warning it's not miliseconds (ms) but microseconds, multiplying by 1000 to get ms.
+
+---
 
 ## Step by step
 

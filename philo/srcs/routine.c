@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:11 by witong            #+#    #+#             */
-/*   Updated: 2024/11/29 11:52:08 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/29 15:58:41 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		usleep(1);
+		usleep(10000);
 	while (philo->table->running)
 	{
 		if (realtime() - philo->last_meal_time >= philo->table->time_to_die)
