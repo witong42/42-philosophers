@@ -28,10 +28,12 @@ A date race is when a thread is writing on a mutable object at the same time as 
 
 gettimeofday() is a function who takes a struct called timeval as follows and fill the tv_sec and tv_usec respectively:
 
+<code>
 struct timeval {
 	time_t	tv_sec;	/* seconds */
 	suseconds_t	tv_usec;	* microseconds */
 };
+</code>
 
 ## Step by step
 
