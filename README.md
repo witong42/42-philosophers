@@ -40,16 +40,29 @@ struct timeval {
 Parsing args into a struct that will hold the variables.
 
 <a name='step2'>2. Structures</a>
+
  Create another struct for the individual philosophers' data
-<a name='step3'>3. Initialize and memory allocate the data in the structures</a>
+
+<a name='step3'>3. Initialize and memory allocate</a>
+
+ Initialize and memory allocate the data in the structures
+
 <a name='step4'>4. Routine</a>
+
 <a name='step5'>5. Supervisor</a>
+
 <a name='step6'>6. Monitor</a>
+
 <a name='step7'>7. Memory Management</a>
+
 
 ## Ideas / Todo
 
 pair impair startup ?
+
 right_fork = left_fork + 1
+
 take both forks or none
+
 check death thread
+
