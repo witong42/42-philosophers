@@ -6,26 +6,28 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:58:50 by witong            #+#    #+#             */
-/*   Updated: 2024/11/28 11:34:08 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/29 11:53:58 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	realtime(void)
+long long	realtime(void)
 {
 	struct timeval	current_time;
+	long long	time_ms;
 
 	if (gettimeofday(&current_time, NULL) != 0)
 		return (printf("Error with gettimeofday\n"), -1);
-	return ((current_time.tv_sec * (u_int64_t)1000) + (current_time.tv_usec / 1000));
+	time_ms = (current_time.tv_sec * 1000LL) + (current_time.tv_usec / 1000);
+	return (time_ms);
 }
 
 void	putstatus(char *str, t_philo *philo)
 {
-	long	time;
+	long long	time;
 
-	time = realtime();
+	time = realtime() - philo->table->set_time;
 	if (time != -1)
-		printf("%ld %d %s\n", time, philo->id, str);
+		printf("%lldms %d %s\n", time, philo->id, str);
 }

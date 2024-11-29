@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:38:40 by witong            #+#    #+#             */
-/*   Updated: 2024/11/28 14:17:51 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/29 11:46:06 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int parsing(t_table *table, char **av)
 {
+	table->set_time = realtime();
 	table->philo_count = ft_atoi(av[1]);
 	table->time_to_die = ft_atoi(av[2]);
 	table->time_to_eat = ft_atoi(av[3]);

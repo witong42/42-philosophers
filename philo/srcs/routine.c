@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:11 by witong            #+#    #+#             */
-/*   Updated: 2024/11/28 16:42:49 by witong           ###   ########.fr       */
+/*   Updated: 2024/11/29 11:52:08 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,19 @@ void	*routine(void *arg)
 		usleep(1);
 	while (philo->table->running)
 	{
-		if (realtime() - philo->last_meal_time > philo->table->time_to_die)
+		if (realtime() - philo->last_meal_time >= philo->table->time_to_die)
 		{
 			putstatus(DEAD, philo);
 			philo->table->running = 0;
 			break;
 		}
+		if (philo->table->running)
+		{
 		pick_forks(philo);
 		eat(philo);
 		drop_forks(philo);
 		sleep_think(philo);
+		}
 	}
 	return (NULL);
 }

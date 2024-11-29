@@ -31,6 +31,7 @@ typedef struct s_table
 	int			time_to_sleep;
 	int			meals_required;
 	int			running;
+	long long	set_time;
 	pthread_t	*threads;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;
@@ -56,7 +57,7 @@ int		ft_atoi(const char *nptr);
 void	cleanup(t_table *table);
 
 // utils_philo.c
-long	realtime(void);
+long long	realtime(void);
 void	putstatus(char *str, t_philo *philo);
 
 #endif
