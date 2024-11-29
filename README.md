@@ -6,7 +6,6 @@
 3. [Step-by-step](##Step-by-step)
 	1. [Parsing](#step1)
 	2. [Structures](#step2)
-   - Create another struct for the individual philosophers' data.
 	3. [Initialization and Memory Allocation](#step3)
 	4. [Routine](#step4)
 	5. [Supervisor](#step5)
