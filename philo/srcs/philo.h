@@ -5,6 +5,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <pthread.h>
+# include <stdbool.h>
 # include <sys/time.h>
 
 # define FORK "has taken a fork"
@@ -16,7 +17,8 @@
 typedef struct s_philo
 {
 	int				id;
-	int				meals_eaten;
+	long			meals_eaten;
+	bool			full;
 	long			last_meal_time;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -25,13 +27,13 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	int			philo_count;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			meals_required;
-	int			running;
-	long long	set_time;
+	long			philo_count;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			meals_required;
+	long		set_time;
+	bool		running;
 	pthread_t	*threads;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;
@@ -54,11 +56,11 @@ void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
 
 // utils_ft.c
-int		ft_atoi(const char *nptr);
+long	ft_atol(const char *nptr);
 void	cleanup(t_table *table);
 
 // utils_philo.c
-long long	realtime(void);
+long	realtime(void);
 void	putstatus(char *str, t_philo *philo);
 
 #endif

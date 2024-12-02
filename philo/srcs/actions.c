@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:46:31 by witong            #+#    #+#             */
-/*   Updated: 2024/12/02 13:28:26 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/02 15:21:25 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,20 @@
 
 void	check_all_eaten(t_philo *philo)
 {
-	if (philo->table->meals_required != -1
-			&& philo->meals_eaten >= philo->table->meals_required)
-		philo->table->running = 0;
+	int i;
+
+	if (philo->table->meals_required != -1)
+	{
+		i = 0;
+		while (i < philo->table->philo_count)
+		{
+			if (philo[i].meals_eaten >= philo->table->meals_required)
+			{
+				philo->table->running = 0;
+			}
+			i++;
+		}
+	}
 }
 
 void	thinking(t_philo *philo)

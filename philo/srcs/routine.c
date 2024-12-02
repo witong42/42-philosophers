@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:11 by witong            #+#    #+#             */
-/*   Updated: 2024/12/02 14:24:22 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/02 14:54:51 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*check_dead(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(&philo->table->write_lock);
-		usleep(1000);
+		usleep(500);
 	}
 	return (NULL);
 }
@@ -59,7 +59,7 @@ int	create_threads(t_table *table)
 
 	if (pthread_create(&tid0, NULL, &check_dead, &table->philo[0]) != 0)
 	{
-		printf("Error creating thread 0\n");
+		printf("Error creating threads.\n");
 		return (1);
 	}
 	i = 0;
@@ -67,7 +67,7 @@ int	create_threads(t_table *table)
 	{
 		if (pthread_create(&table->threads[i], NULL, &routine, &table->philo[i]) != 0)
 		{
-			printf("Error creating threads\n");
+			printf("Error creating threads.\n");
 			return (1);
 		}
 		i++;
