@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:11 by witong            #+#    #+#             */
-/*   Updated: 2024/12/02 12:54:50 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/02 14:24:22 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*check_dead(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	while (philo->table->running)
+	while (1)
 	{
 		pthread_mutex_lock(&philo->table->write_lock);
 		if (realtime() - philo->last_meal_time >= philo->table->time_to_die)
