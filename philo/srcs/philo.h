@@ -16,8 +16,8 @@
 typedef struct s_philo
 {
 	int				id;
-	long			last_meal_time;
 	int				meals_eaten;
+	long			last_meal_time;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	struct s_table	*table;
@@ -49,8 +49,9 @@ void join_threads(t_table *table);
 // actions.c
 void	pick_forks(t_philo *philo);
 void	drop_forks(t_philo *philo);
-void	eat(t_philo *philo);
-void	sleep_think(t_philo *philo);
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
 
 // utils_ft.c
 int		ft_atoi(const char *nptr);

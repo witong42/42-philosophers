@@ -26,13 +26,19 @@ A date race is when a thread is writing on a mutable object at the same time as 
 
 For this project we need to familiarize ourselves with threads and mutex.
 
+
 1. Threads
 
-Difference between processes (forks) and threads:
+A thread is a small sequence of programmed instructions, and the threads are a subset of a process.
+They are sometimes called lightweight processes.
 
+Difference between processes (forks) and threads:
 A fork is creating a new process that copies all the elements of an old one, or parent. In a fork, memory and resources are isolated.
 
+Multithreading :
+Using multiple threads is like having multiple tabs in your browser.
 
+the p in pthreads is for POSIX standard for threads.
 
 2. Mutex
 
@@ -52,6 +58,25 @@ struct timeval {
 usleep() suspend the execution of the thread it is in in microseconds. ! Warning it's not miliseconds (ms) but microseconds, multiplying by 1000 to get ms.
 
 ---
+
+pthread_create as its name indicate is to create a thread, it can be used in a loop to create multiple threads.
+It takes 4 arguments as follows:
+
+pthread_create(&thread_id, NULL, &routine, arg);
+
+1st arg, is a pointer to a pthread_t variable id.
+2nd arg, we put NULL to get the default attributes
+3rd arg, a pointer to the function the thread will be executing
+4th arg, used to pass an argument to the routine function.
+
+---
+
+pthread_join() is to threads the same as the wait() function for processes, it's waiting that the specified thread mentionned is terminated
+
+pthread_join(thread_id, returnval)
+
+returnval if not NULL will return
+
 
 ## Step by step
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_ft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:02:34 by witong            #+#    #+#             */
-/*   Updated: 2024/11/26 15:53:50 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/02 11:53:46 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	ft_atoi(const char *nptr)
 	return (result * sign);
 }
 
+
 void cleanup(t_table *table)
 {
 	int i;
@@ -50,5 +51,7 @@ void cleanup(t_table *table)
 	}
 	if (table->philo)
 		free(table->philo);
+	if (table->threads)
+		free(table->threads);
 	pthread_mutex_destroy(&(table->write_lock));
 }

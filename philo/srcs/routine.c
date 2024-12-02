@@ -6,24 +6,32 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:11 by witong            #+#    #+#             */
-/*   Updated: 2024/11/29 15:58:41 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/02 12:54:50 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*
-int		monitoring(t_philo	*philo)
+void	*check_dead(void *arg)
 {
-	if ()
-		return (1);
-	return (0);
-}
-void	*is_dead(void *arg)
-{
+	t_philo *philo;
 
+	philo = (t_philo *)arg;
+	while (philo->table->running)
+	{
+		pthread_mutex_lock(&philo->table->write_lock);
+		if (realtime() - philo->last_meal_time >= philo->table->time_to_die)
+		{
+			philo->table->running = 0;
+			putstatus(DEAD, philo);
+			pthread_mutex_unlock(&philo->table->write_lock);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->table->write_lock);
+		usleep(1000);
+	}
+	return (NULL);
 }
-*/
 
 void	*routine(void *arg)
 {
@@ -31,22 +39,15 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		usleep(10000);
+		usleep(1000);
 	while (philo->table->running)
 	{
-		if (realtime() - philo->last_meal_time >= philo->table->time_to_die)
-		{
-			putstatus(DEAD, philo);
-			philo->table->running = 0;
-			break;
-		}
 		if (philo->table->running)
-		{
-		pick_forks(philo);
-		eat(philo);
-		drop_forks(philo);
-		sleep_think(philo);
-		}
+			thinking(philo);
+		if (philo->table->running)
+			eating(philo);
+		if (philo->table->running)
+			sleeping(philo);
 	}
 	return (NULL);
 }
@@ -54,13 +55,19 @@ void	*routine(void *arg)
 int	create_threads(t_table *table)
 {
 	int	i;
+	pthread_t	tid0;
 
+	if (pthread_create(&tid0, NULL, &check_dead, &table->philo[0]) != 0)
+	{
+		printf("Error creating thread 0\n");
+		return (1);
+	}
 	i = 0;
 	while (i < table->philo_count)
 	{
-		if (pthread_create(&table->threads[i], NULL, routine, &table->philo[i]) != 0)
+		if (pthread_create(&table->threads[i], NULL, &routine, &table->philo[i]) != 0)
 		{
-			printf("Error creating threads %d\n", i + 1);
+			printf("Error creating threads\n");
 			return (1);
 		}
 		i++;

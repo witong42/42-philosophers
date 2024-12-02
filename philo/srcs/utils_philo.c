@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:58:50 by witong            #+#    #+#             */
-/*   Updated: 2024/11/29 11:53:58 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/02 12:51:17 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void	putstatus(char *str, t_philo *philo)
 
 	time = realtime() - philo->table->set_time;
 	if (time != -1)
-		printf("%lldms %d %s\n", time, philo->id, str);
+		printf("%lld %d %s\n", time, philo->id, str);
 }
