@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:11 by witong            #+#    #+#             */
-/*   Updated: 2024/12/03 15:35:54 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/03 16:07:13 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,12 @@ int	create_threads(t_table *table)
 	int	i;
 
 	if (pthread_create(&table->tid0, NULL, &check_dead, &table->philo[0]) != 0)
-	{
-		printf("Error creating threads.\n");
 		return (1);
-	}
 	i = 0;
 	while (i < table->philo_count)
 	{
 		if (pthread_create(&table->threads[i], NULL, &routine, &table->philo[i]) != 0)
-		{
-			printf("Error creating threads.\n");
 			return (1);
-		}
 		i++;
 	}
 	return (0);
