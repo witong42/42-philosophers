@@ -18,8 +18,8 @@ typedef struct s_philo
 {
 	int				id;
 	long			meals_eaten;
-	bool			full;
 	long			last_meal_time;
+	bool			full;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	struct s_table	*table;
@@ -34,9 +34,11 @@ typedef struct s_table
 	long			meals_required;
 	long		set_time;
 	bool		running;
+	pthread_t	tid0;
 	pthread_t	*threads;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;
+	pthread_mutex_t meals_lock;
 	struct s_philo	*philo;
 }		t_table;
 
@@ -44,9 +46,10 @@ typedef struct s_table
 int init(t_table *table);
 
 // routine.c
-void *routine(void *arg);
-int	create_threads(t_table *table);
-void join_threads(t_table *table);
+bool	is_running(t_philo *philo);
+void	*routine(void *arg);
+int		create_threads(t_table *table);
+void	join_threads(t_table *table);
 
 // actions.c
 void	pick_forks(t_philo *philo);

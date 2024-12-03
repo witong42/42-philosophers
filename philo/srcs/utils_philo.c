@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:58:50 by witong            #+#    #+#             */
-/*   Updated: 2024/12/02 16:27:22 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/03 10:42:43 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,9 @@ void	putstatus(char *str, t_philo *philo)
 
 	time = realtime() - philo->table->set_time;
 	if (time != -1)
+	{
+		pthread_mutex_lock(&philo->table->write_lock);
 		printf("%ld %d %s\n", time, philo->id, str);
+		pthread_mutex_unlock(&philo->table->write_lock);
+	}
 }
