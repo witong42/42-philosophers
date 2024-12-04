@@ -39,6 +39,7 @@ typedef struct s_table
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t meals_lock;
+	pthread_mutex_t dead_lock;
 	struct s_philo	*philo;
 }		t_table;
 
@@ -52,8 +53,8 @@ int		create_threads(t_table *table);
 void	join_threads(t_table *table);
 
 // actions.c
+void	check_all_eaten(t_philo *philo);
 void	pick_forks(t_philo *philo);
-void	drop_forks(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);

@@ -1,6 +1,0 @@
-typedef struct s_table
-{
-	// ...existing code...
-	pthread_t	check_dead_thread;
-	// ...existing code...
-}	t_table;

@@ -42,7 +42,13 @@ the p in pthreads is for POSIX standard for threads.
 
 2. Mutex
 
+A mutex is similar to an immutable key. It can be locked or unlocked using pthread_mutex_lock() and pthread_mutex_unlock(), but first has to be pthread_mutex_init(), and destroyed after use with pthread_mutex_destroy();
 
+In philo we have init a mutex for each forks, and also when writing or counting meals to make sure there's no data race.
+
+3. Data races
+
+A race condition is when 2 or more threads are concurrently accessing a data
 
 ## Allowed Functions
 
@@ -71,11 +77,11 @@ pthread_create(&thread_id, NULL, &routine, arg);
 
 ---
 
-pthread_join() is to threads the same as the wait() function for processes, it's waiting that the specified thread mentionned is terminated
+pthread_join() is to threads the same as the wait() function for processes, it's waiting that the specified thread mentionned is terminated. It is also acting as a clean up
 
 pthread_join(thread_id, returnval)
 
-returnval if not NULL will return
+returnval if not NULL will return 0 on success or an error code.
 
 
 ## Step by step
@@ -100,14 +106,15 @@ Parsing args into a struct that will hold the variables.
 
 <a name='step7'>7. Memory Management</a>
 
+## Test cmd
+valgrind --fair-sched=yes --tool=helgrind ./philo 5 800 200 200 3
+
 
 ## Ideas / Todo
 
-pair impair startup ?
+[x] pair impair startup
 
-right_fork = left_fork + 1
+[x] right_fork = left_fork + 1
 
-take both forks or none ??
-
-check death thread
+[x] check death thread
 
