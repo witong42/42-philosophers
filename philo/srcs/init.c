@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:21:53 by witong            #+#    #+#             */
-/*   Updated: 2024/12/03 11:22:06 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/04 09:52:20 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ int init_forks(t_table *table)
 		i++;
 	}
 	i = 0;
-    while (i < table->philo_count)
-    {
-        table->philo[i].left_fork = &table->forks[i];
-        table->philo[i].right_fork = &table->forks[(i + 1) % table->philo_count];
-        i++;
-    }
+	while (i < table->philo_count)
+	{
+		table->philo[i].left_fork = &table->forks[i];
+		table->philo[i].right_fork = &table->forks[(i + 1) % table->philo_count];
+		i++;
+	}
 	return (0);
 }
 
