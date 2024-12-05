@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:02:34 by witong            #+#    #+#             */
-/*   Updated: 2024/12/04 14:31:58 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/04 21:15:47 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void cleanup(t_table *table)
 		free(table->threads);
 	if (&(table->write_lock))
 		pthread_mutex_destroy(&(table->write_lock));
-	if (&(table->write_lock))
+	if (&(table->meals_lock))
 		pthread_mutex_destroy(&(table->meals_lock));
-	if (&(table->write_lock))
+	if (&(table->dead_lock))
 		pthread_mutex_destroy(&(table->dead_lock));
 }

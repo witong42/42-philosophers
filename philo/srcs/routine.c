@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:11 by witong            #+#    #+#             */
-/*   Updated: 2024/12/04 20:19:17 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/04 22:16:58 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 bool	is_running(t_philo *philo)
 {
+	bool running;
 	pthread_mutex_lock(&philo->table->dead_lock);
-	if (!philo->table->running)
-	{
-		pthread_mutex_unlock(&philo->table->dead_lock);
-		return (false);
-	}
+	running = philo->table->running;
 	pthread_mutex_unlock(&philo->table->dead_lock);
-	return (true);
+	return (running);
 }
 
 void	*check_dead(void *arg)
@@ -29,18 +26,15 @@ void	*check_dead(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	while (1)
+	while (is_running(philo))
 	{
-		if (!is_running(philo))
-			break ;
 		pthread_mutex_lock(&philo->table->meals_lock);
 		if (realtime() - philo->last_meal_time >= philo->table->time_to_die)
 		{
 			pthread_mutex_unlock(&philo->table->meals_lock);
 			putstatus(DEAD, philo);
 			pthread_mutex_lock(&philo->table->dead_lock);
-			usleep(100);
-			philo->table->running = 0;
+			philo->table->running = false;
 			pthread_mutex_unlock(&philo->table->dead_lock);
 			break ;
 		}
@@ -50,6 +44,7 @@ void	*check_dead(void *arg)
 	return (NULL);
 }
 
+
 void	*routine(void *arg)
 {
 	t_philo *philo;
@@ -57,24 +52,21 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
 		usleep(500);
-	while (1)
+	while (is_running(philo))
 	{
 		check_all_eaten(philo);
-		if (!is_running(philo))
-			break ;
-		pick_forks(philo);
-		if (!is_running(philo))
+		if (philo->table->philo_count == 1)
 		{
-			pthread_mutex_unlock(philo->left_fork);
-			pthread_mutex_unlock(philo->right_fork);
-			break ;
+			philo_one(philo);
+			break;
 		}
+		pick_forks(philo);
 		eating(philo);
 		if (!is_running(philo))
-			break ;
+			break;
 		sleeping(philo);
 		if (!is_running(philo))
-			break ;
+			break;
 		thinking(philo);
 		usleep(100);
 	}

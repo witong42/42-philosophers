@@ -54,6 +54,7 @@ void	join_threads(t_table *table);
 
 // actions.c
 void	check_all_eaten(t_philo *philo);
+void	philo_one(t_philo *philo);
 void	pick_forks(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
