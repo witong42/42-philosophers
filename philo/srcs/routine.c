@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:11 by witong            #+#    #+#             */
-/*   Updated: 2024/12/04 22:16:58 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/06 10:04:21 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,27 @@ bool	is_running(t_philo *philo)
 void	*check_dead(void *arg)
 {
 	t_philo *philo;
+	int	i;
 
 	philo = (t_philo *)arg;
 	while (is_running(philo))
-	{
-		pthread_mutex_lock(&philo->table->meals_lock);
-		if (realtime() - philo->last_meal_time >= philo->table->time_to_die)
+    {
+		i = 0;
+		while (i < philo->table->philo_count)
 		{
+			pthread_mutex_lock(&philo->table->meals_lock);
+			if (realtime() - philo->table->philo[i].last_meal_time >= philo->table->time_to_die)
+			{
+				pthread_mutex_unlock(&philo->table->meals_lock);
+				putstatus(DEAD, philo);
+				pthread_mutex_lock(&philo->table->dead_lock);
+				philo->table->running = false;
+				pthread_mutex_unlock(&philo->table->dead_lock);
+				return (NULL) ;
+			}
 			pthread_mutex_unlock(&philo->table->meals_lock);
-			putstatus(DEAD, philo);
-			pthread_mutex_lock(&philo->table->dead_lock);
-			philo->table->running = false;
-			pthread_mutex_unlock(&philo->table->dead_lock);
-			break ;
+			i++;
 		}
-		pthread_mutex_unlock(&philo->table->meals_lock);
 		usleep(100);
 	}
 	return (NULL);
