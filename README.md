@@ -106,15 +106,7 @@ Parsing args into a struct that will hold the variables.
 
 <a name='step7'>7. Memory Management</a>
 
-## Test cmd
-valgrind --fair-sched=yes --tool=helgrind ./philo 5 800 200 200 3
-
-
-## Ideas / Todo
-
-[x] pair impair startup
-
-[x] right_fork = left_fork + 1
-
-[x] check death thread
+## Testing
+valgrind --fair-sched=yes --tool=helgrind ./philo 5 800 200 200 7
+https://github.com/Rz-Rz/thales_tester
 
