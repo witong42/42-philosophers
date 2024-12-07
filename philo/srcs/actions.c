@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:46:31 by witong            #+#    #+#             */
-/*   Updated: 2024/12/06 13:09:11 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/07 12:15:03 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	thinking(t_philo *philo)
 {
-		if (!is_running(philo))
+		if (!is_running(philo->table))
 			return ;
 		putstatus(THINK, philo);
 }
 
 void	pick_forks(t_philo *philo)
 {
-	if (!is_running(philo))
+	if (!is_running(philo->table))
 		return ;
 	if (philo->id % 2 == 0)
 	{
@@ -39,7 +39,7 @@ void	pick_forks(t_philo *philo)
 
 void	eating(t_philo *philo)
 {
-	if (!is_running(philo))
+	if (!is_running(philo->table))
 	{
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
@@ -57,7 +57,7 @@ void	eating(t_philo *philo)
 
 void	sleeping(t_philo *philo)
 {
-		if (!is_running(philo))
+		if (!is_running(philo->table))
 			return ;
 		putstatus(SLEEP, philo);
 		usleep(philo->table->time_to_sleep * 1000);

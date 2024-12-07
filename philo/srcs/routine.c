@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:11 by witong            #+#    #+#             */
-/*   Updated: 2024/12/07 12:06:33 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/07 12:11:46 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	*routine(void *arg)
 		pthread_mutex_unlock(philo->right_fork);
 		return (NULL);
 	}
-	while (is_running(philo))
+	while (is_running(philo->table))
 	{
 		check_all_eaten(philo);
-		if (!is_running(philo))
+		if (!is_running(philo->table))
 			return (NULL);
 		pick_forks(philo);
 		eating(philo);

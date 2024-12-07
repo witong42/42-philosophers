@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:21:53 by witong            #+#    #+#             */
-/*   Updated: 2024/12/07 11:49:17 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/07 12:22:47 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int init_table(t_table *table)
 	i = 0;
 	while (i < table->philo_count)
 	{
-		table->philos[i].id = i;
+		table->philos[i].id = i + 1;
 		table->philos[i].meals_eaten = 0;
 		table->philos[i].last_meal_time = realtime();
 		table->philos[i].full = false;

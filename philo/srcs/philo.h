@@ -59,7 +59,7 @@ void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
 
 // checks.c
-bool	is_running(t_philo *philo);
+bool	is_running(t_table *table);
 void	*check_dead(void *arg);
 void	check_all_eaten(t_philo *philo);
 

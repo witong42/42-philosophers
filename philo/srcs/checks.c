@@ -6,18 +6,18 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 13:09:15 by witong            #+#    #+#             */
-/*   Updated: 2024/12/07 12:09:03 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/07 12:21:27 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	is_running(t_philo *philo)
+bool	is_running(t_table *table)
 {
 	bool running;
-	pthread_mutex_lock(&philo->table->dead_lock);
-	running = philo->table->running;
-	pthread_mutex_unlock(&philo->table->dead_lock);
+	pthread_mutex_lock(&table->dead_lock);
+	running = table->running;
+	pthread_mutex_unlock(&table->dead_lock);
 	return (running);
 }
 
@@ -43,7 +43,9 @@ void	*check_dead(void *arg)
 			if (realtime() - table->philos[i].last_meal_time > table->time_to_die)
 			{
 				pthread_mutex_unlock(&table->meals_lock);
-				putstatus(DEAD, &table->philos[i]);
+				pthread_mutex_lock(&table->write_lock);
+				printf("%ld %d %s\n", realtime() - table->set_time, table->philos[i].id, DEAD);
+				pthread_mutex_unlock(&table->write_lock);
 				end_simulation(table);
 				return (NULL);
 			}
