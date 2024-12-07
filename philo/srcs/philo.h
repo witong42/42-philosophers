@@ -40,7 +40,7 @@ typedef struct s_table
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t meals_lock;
 	pthread_mutex_t dead_lock;
-	struct s_philo	*philo;
+	struct s_philo	*philos;
 }		t_table;
 
 // init.c

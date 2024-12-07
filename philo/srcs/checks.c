@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 13:09:15 by witong            #+#    #+#             */
-/*   Updated: 2024/12/06 13:18:30 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/07 12:09:03 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,33 @@ bool	is_running(t_philo *philo)
 	return (running);
 }
 
-void	end_simulation(t_philo *philo)
+void	end_simulation(t_table *table)
 {
-	pthread_mutex_lock(&philo->table->dead_lock);
-	philo->table->running = false;
-	pthread_mutex_unlock(&philo->table->dead_lock);
+	pthread_mutex_lock(&table->dead_lock);
+	table->running = false;
+	pthread_mutex_unlock(&table->dead_lock);
 }
 
 void	*check_dead(void *arg)
 {
-	t_philo *philo;
-	int	i;
+	t_table	*table;
+	int		i;
 
-	philo = (t_philo *)arg;
-	while (is_running(philo))
-    {
+	table = (t_table *)arg;
+	while (table->running)
+	{
 		i = 0;
-		while (i < philo->table->philo_count)
+		while (i < table->philo_count)
 		{
-			pthread_mutex_lock(&philo->table->meals_lock);
-			if (realtime() - philo->table->philo[i].last_meal_time > philo->table->time_to_die)
+			pthread_mutex_lock(&table->meals_lock);
+			if (realtime() - table->philos[i].last_meal_time > table->time_to_die)
 			{
-				pthread_mutex_unlock(&philo->table->meals_lock);
-				putstatus(DEAD, philo);
-				end_simulation(philo);
-				return (NULL) ;
+				pthread_mutex_unlock(&table->meals_lock);
+				putstatus(DEAD, &table->philos[i]);
+				end_simulation(table);
+				return (NULL);
 			}
-			pthread_mutex_unlock(&philo->table->meals_lock);
+			pthread_mutex_unlock(&table->meals_lock);
 			i++;
 		}
 		usleep(100);
@@ -70,7 +70,7 @@ void	check_all_eaten(t_philo *philo)
 			i = 0;
 			while (i < philo->table->philo_count)
 			{
-				if (!philo->table->philo[i].full)
+				if (!philo->table->philos[i].full)
 				{
 					all_full = 0;
 					break ;
@@ -78,7 +78,7 @@ void	check_all_eaten(t_philo *philo)
 				i++;
 			}
 			if (all_full)
-				end_simulation(philo);
+				end_simulation(philo->table);
 		}
 		pthread_mutex_unlock(&philo->table->meals_lock);
 	}

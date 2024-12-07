@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:11 by witong            #+#    #+#             */
-/*   Updated: 2024/12/06 13:14:07 by witong           ###   ########.fr       */
+/*   Updated: 2024/12/07 12:06:33 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ int	create_threads(t_table *table)
 {
 	int	i;
 
-	if (pthread_create(&table->tid0, NULL, &check_dead, &table->philo[0]) != 0)
+	table->running = true;
+	table->set_time = realtime();
+	if (pthread_create(&table->tid0, NULL, &check_dead, table) != 0)
 	{
 		cleanup(table);
 		return (1);
@@ -51,7 +53,7 @@ int	create_threads(t_table *table)
 	i = 0;
 	while (i < table->philo_count)
 	{
-		if (pthread_create(&table->threads[i], NULL, &routine, &table->philo[i]) != 0)
+		if (pthread_create(&table->threads[i], NULL, &routine, &table->philos[i]) != 0)
 		{
 			cleanup(table);
 			return (1);
