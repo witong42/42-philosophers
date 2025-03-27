@@ -1,9 +1,9 @@
 NAME	= philo
 
-SRCS	= srcs/philo.c srcs/init.c srcs/routine.c srcs/actions.c srcs/checks.c srcs/utils_ft.c srcs/utils_philo.c
+SRCS	= srcs/main.c srcs/init.c srcs/routine.c srcs/ft_utils.c srcs/philo_utils.c
 OBJS	= $(SRCS:%.c=%.o)
 
-CC		= gcc
+CC		= cc
 CFLAGS	= -Wall -Werror -Wextra
 #CFLAGS2 = -fsanitize=thread -g
 RM		= rm -f

@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 13:09:15 by witong            #+#    #+#             */
-/*   Updated: 2024/12/06 13:18:30 by witong           ###   ########.fr       */
+/*   Updated: 2025/03/26 01:20:26 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 bool	is_running(t_philo *philo)
 {
-	bool running;
+	bool	running;
+	
 	pthread_mutex_lock(&philo->table->dead_lock);
 	running = philo->table->running;
 	pthread_mutex_unlock(&philo->table->dead_lock);

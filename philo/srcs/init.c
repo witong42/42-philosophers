@@ -1,90 +1,100 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 16:21:53 by witong            #+#    #+#             */
-/*   Updated: 2024/12/07 12:22:47 by witong           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philo.h"
 
-int init_table(t_table *table)
+static void	init_philo(t_philo *philo, t_data *data, int i)
+{
+	philo->id = i + 1;
+	philo->philo_count = data->philo_count;
+	philo->time_to_die = data->time_to_die;
+	philo->time_to_eat = data->time_to_eat;
+	philo->time_to_sleep = data->time_to_sleep;
+	philo->meals_required = data->meals_required;
+	philo->meals_eaten = 0;
+	philo->start_time = get_time();
+	philo->last_meal_time = get_time();
+	philo->end = &data->end;
+	philo->write_lock = &data->write_lock;
+	philo->meals_lock = &data->meals_lock;
+	philo->dead_lock = &data->dead_lock;
+	if (i % 2 == 0)
+	{
+		philo->left_fork = &data->forks[i];
+		philo->right_fork = &data->forks[(i + 1) % data->philo_count];
+	}
+	else
+	{
+		philo->right_fork = &data->forks[i];
+		philo->left_fork = &data->forks[(i + 1) % data->philo_count];
+	}
+}
+
+int	init_philos(t_data *data)
+{
+	t_philo	*philos;
+	int	i;
+
+	i = 0;
+	philos = malloc(sizeof(t_philo) * data->philo_count);
+	if (!philos)
+		return (1);
+	while (i < data->philo_count)
+	{
+		init_philo(&philos[i], data, i);
+		i++;
+	}
+	data->philos = philos;
+	return (0);
+}
+
+int	init_forks(t_data *data)
 {
 	int	i;
 
-	table->philos = malloc(sizeof(t_philo) * table->philo_count);
-	if (!table->philos)
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_count);
+	if (!data->forks)
 		return (1);
 	i = 0;
-	while (i < table->philo_count)
+	while (i < data->philo_count)
 	{
-		table->philos[i].id = i + 1;
-		table->philos[i].meals_eaten = 0;
-		table->philos[i].last_meal_time = realtime();
-		table->philos[i].full = false;
-		table->philos[i].left_fork = &table->forks[i];
-		table->philos[i].right_fork = &table->forks[(i + 1) % table->philo_count];
-		table->philos[i].table = table;
-		i++;
-	}
-	table->threads = malloc(sizeof(pthread_t) * table->philo_count);
-	if (!table->threads)
-	{
-		free(table->philos);
-		return (1);
-	}
-	return (0);
-}
-
-int init_forks(t_table *table)
-{
-	int i;
-
-	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_count);
-	if (!table->forks)
-		return (cleanup(table), 1);
-	i = 0;
-	while (i < table->philo_count)
-	{
-		if (pthread_mutex_init(&(table->forks[i]), NULL) != 0)
-		{
-			while (--i >= 0)
-				pthread_mutex_destroy(&(table->forks[i]));
-			cleanup(table);
+		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 			return (1);
-		}
 		i++;
 	}
 	return (0);
 }
 
-int init(t_table *table)
+int	init(t_data *data)
 {
-	if (init_forks(table) != 0)
-	{
-		cleanup(table);
+	data->end = 0;
+	if (pthread_mutex_init(&data->write_lock, NULL) != 0)
 		return (1);
+	if (pthread_mutex_init(&data->meals_lock, NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&data->dead_lock, NULL) != 0)
+		return (1);
+	if (init_forks(data) != 0)
+		return (1);
+	if (init_philos(data) != 0)
+		return (1);
+	return (0);
+}
+
+int	create_threads(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->philo_count)
+	{
+		if (pthread_create(&data->philos[i].philo_thread, NULL,
+				&routine, &data->philos[i]) != 0)
+			return (1);
+		i++;
 	}
-	if (init_table(table) != 0)
-		return (cleanup(table), 1);
-	if (pthread_mutex_init(&(table->write_lock), NULL) != 0)
+	i = 0;
+	while (i < data->philo_count)
 	{
-		cleanup(table);
-		return (1);
-	}
-	if (pthread_mutex_init(&(table->meals_lock), NULL) != 0)
-	{
-		cleanup(table);
-		return (1);
-	}
-	if (pthread_mutex_init(&(table->dead_lock), NULL) != 0)
-	{
-		cleanup(table);
-		return (1);
+		pthread_join(data->philos[i].philo_thread, NULL);
+		i++;
 	}
 	return (0);
 }
