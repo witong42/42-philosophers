@@ -15,16 +15,8 @@ static void	init_philo(t_philo *philo, t_data *data, int i)
 	philo->write_lock = &data->write_lock;
 	philo->meals_lock = &data->meals_lock;
 	philo->dead_lock = &data->dead_lock;
-	if (i % 2 == 0)
-	{
-		philo->left_fork = &data->forks[i];
-		philo->right_fork = &data->forks[(i + 1) % data->philo_count];
-	}
-	else
-	{
-		philo->right_fork = &data->forks[i];
-		philo->left_fork = &data->forks[(i + 1) % data->philo_count];
-	}
+	philo->left_fork = &data->forks[i];
+	philo->right_fork = &data->forks[(i + 1) % data->philo_count];
 }
 
 int	init_philos(t_data *data)

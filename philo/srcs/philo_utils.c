@@ -11,6 +11,22 @@ int	get_time(void)
 	return (time_ms);
 }
 
+int	ft_usleep(int time, t_philo *philo)
+{
+	int	start;
+
+	start = get_time();
+	while ((get_time() - start) < time)
+	{
+		pthread_mutex_lock(philo->dead_lock);
+		if (*(philo->end))
+			return (pthread_mutex_unlock(philo->dead_lock), 1);
+		pthread_mutex_unlock(philo->dead_lock);
+		usleep(500);
+	}
+	return (0);
+}
+
 void	put_status(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(philo->write_lock);
