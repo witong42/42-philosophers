@@ -74,6 +74,8 @@ int	create_threads(t_data *data)
 {
 	int	i;
 
+	if (pthread_create(&data->monitor, NULL, &monitoring, data) != 0)
+		return (1);
 	i = 0;
 	while (i < data->philo_count)
 	{

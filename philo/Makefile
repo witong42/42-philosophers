@@ -1,6 +1,6 @@
 NAME	= philo
 
-SRCS	= srcs/main.c srcs/init.c srcs/routine.c srcs/ft_utils.c srcs/philo_utils.c
+SRCS	= srcs/main.c srcs/init.c srcs/routine.c srcs/monitoring.c srcs/ft_utils.c srcs/philo_utils.c
 OBJS	= $(SRCS:%.c=%.o)
 
 CC		= cc

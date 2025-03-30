@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:23:37 by witong            #+#    #+#             */
-/*   Updated: 2025/03/28 14:11:34 by witong           ###   ########.fr       */
+/*   Updated: 2025/03/30 13:27:07 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,12 @@ int	create_threads(t_data *data);
 // routine
 void	*routine(void *arg);
 
+// monitoring
+void	*monitoring(void *arg);
+
 // philo_utils
 int		get_time(void);
-int	ft_usleep(int time, t_philo *philo);
+int		ft_usleep(t_philo *philo, int time);
 void	put_status(t_philo *philo, char *str);
 
 // ft_utils
