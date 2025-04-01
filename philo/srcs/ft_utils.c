@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:11:08 by witong            #+#    #+#             */
-/*   Updated: 2025/03/25 15:46:01 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/01 14:20:26 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,30 @@ int	ft_atoi_safe(char *str)
 		i++;
 	}
 	return ((int)num);
+}
+void	free_all(t_data *data)
+{
+	int	i;
+
+	if (!data)
+		return;
+	pthread_mutex_destroy(&data->write_lock);
+	pthread_mutex_destroy(&data->meals_lock);
+	pthread_mutex_destroy(&data->dead_lock);
+	if (data->forks)
+	{
+		i = 0;
+		while (i < data->philo_count)
+		{
+			pthread_mutex_destroy(&data->forks[i]);
+			i++;
+		}
+		free(data->forks);
+		data->forks = NULL;
+	}
+	if (data->philos)
+	{
+		free(data->philos);
+		data->philos = NULL;
+	}
 }

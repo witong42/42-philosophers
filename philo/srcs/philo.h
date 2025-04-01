@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:23:37 by witong            #+#    #+#             */
-/*   Updated: 2025/03/30 13:27:07 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/01 13:54:46 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_philo
 	int				time_to_sleep;
 	int				meals_required;
 	int				meals_eaten;
-	int				last_meal_time;
-	int				start_time;
+	long			last_meal_time;
+	long			base_time;
 	int				*end;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -64,6 +64,12 @@ typedef struct s_data
 int		init(t_data *data);
 int	create_threads(t_data *data);
 
+// action
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
+int		calculate_think_time(t_philo *philo);
+
 // routine
 void	*routine(void *arg);
 
@@ -71,13 +77,14 @@ void	*routine(void *arg);
 void	*monitoring(void *arg);
 
 // philo_utils
-int		get_time(void);
+long	get_time(void);
 int		ft_usleep(t_philo *philo, int time);
 void	put_status(t_philo *philo, char *str);
 
 // ft_utils
 void	ft_putstr_fd(char *s, int fd);
 int		ft_atoi_safe(char *str);
+void	free_all(t_data *data);
 
 
 #endif

@@ -2,8 +2,8 @@
 
 static int check_death(t_data *data)
 {
-	int	i;
-	int	last_meal;
+	int		i;
+	long	last_meal;
 
 	i = 0;
 	while (i < data->philo_count)
@@ -26,7 +26,28 @@ static int check_death(t_data *data)
 
 static int check_meals(t_data *data)
 {
-	(void)data;
+	int	i;
+	int	all_eaten;
+
+	if (data->meals_required == -1)
+		return (0);
+	all_eaten = 0;
+	i = 0;
+	while (i < data->philo_count)
+	{
+		pthread_mutex_lock(&data->meals_lock);
+		if (data->philos[i].meals_eaten == data->meals_required)
+			all_eaten++;
+		pthread_mutex_unlock(&data->meals_lock);
+		i++;
+	}
+	if (all_eaten == data->philo_count)
+	{
+		pthread_mutex_lock(&data->dead_lock);
+		data->end = 1;
+		pthread_mutex_unlock(&data->dead_lock);
+		return (1);
+	}
 	return (0);
 }
 
@@ -40,7 +61,7 @@ void	*monitoring(void *arg)
 	{
 		if (check_death(data) || check_meals(data))
 			break ;
-		usleep(500);
+		usleep(200);
 	}
 	return (NULL);
 }

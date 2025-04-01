@@ -9,7 +9,7 @@ static void	init_philo(t_philo *philo, t_data *data, int i)
 	philo->time_to_sleep = data->time_to_sleep;
 	philo->meals_required = data->meals_required;
 	philo->meals_eaten = 0;
-	philo->start_time = get_time();
+	philo->base_time = get_time();
 	philo->last_meal_time = get_time();
 	philo->end = &data->end;
 	philo->write_lock = &data->write_lock;
@@ -27,7 +27,7 @@ int	init_philos(t_data *data)
 	i = 0;
 	philos = malloc(sizeof(t_philo) * data->philo_count);
 	if (!philos)
-		return (1);
+		return (free_all(data),1);
 	while (i < data->philo_count)
 	{
 		init_philo(&philos[i], data, i);
@@ -48,7 +48,13 @@ int	init_forks(t_data *data)
 	while (i < data->philo_count)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+		{
+			while (--i >= 0)
+				pthread_mutex_destroy(&data->forks[i]);
+			free(data->forks);
+			data->forks = NULL;
 			return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -57,6 +63,8 @@ int	init_forks(t_data *data)
 int	init(t_data *data)
 {
 	data->end = 0;
+	data->forks = NULL;
+	data->philos = NULL;
 	if (pthread_mutex_init(&data->write_lock, NULL) != 0)
 		return (1);
 	if (pthread_mutex_init(&data->meals_lock, NULL) != 0)
@@ -90,5 +98,6 @@ int	create_threads(t_data *data)
 		pthread_join(data->philos[i].philo_thread, NULL);
 		i++;
 	}
+	pthread_join(data->monitor, NULL);
 	return (0);
 }
