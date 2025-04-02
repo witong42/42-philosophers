@@ -6,15 +6,15 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:52:49 by witong            #+#    #+#             */
-/*   Updated: 2025/04/02 14:23:25 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/02 20:08:51 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static int check_death(t_data *data)
+static int	check_death(t_data *data)
 {
-	int		i;
+	int	i;
 	int	last_meal;
 	int	time;
 
@@ -38,7 +38,7 @@ static int check_death(t_data *data)
 	return (0);
 }
 
-static int check_meals(t_data *data)
+static int	check_meals(t_data *data)
 {
 	int	i;
 	int	all_eaten;

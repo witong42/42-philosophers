@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:23:37 by witong            #+#    #+#             */
-/*   Updated: 2025/04/02 18:51:20 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/02 20:05:53 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*write_lock;
-	pthread_mutex_t *meals_lock;
-	pthread_mutex_t *dead_lock;
+	pthread_mutex_t	*meals_lock;
+	pthread_mutex_t	*dead_lock;
 
 }					t_philo;
 
@@ -51,25 +51,23 @@ typedef struct s_data
 	int				meals_required;
 	int				end;
 	int				threads_count;
-	int			base_time;
+	int				base_time;
 	pthread_t		monitor;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;
-	pthread_mutex_t meals_lock;
-	pthread_mutex_t dead_lock;
+	pthread_mutex_t	meals_lock;
+	pthread_mutex_t	dead_lock;
 	int				write_lock_init;
 	int				meals_lock_init;
 	int				dead_lock_init;
 	t_philo			*philos;
 }					t_data;
 
-
-
 // init
 int		init(t_data *data);
 
 // threads
-int	create_threads(t_data *data);
+int		create_threads(t_data *data);
 
 // action
 void	eating(t_philo *philo);
@@ -91,6 +89,5 @@ void	put_status(t_philo *philo, char *str);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_atoi_safe(char *str);
 void	free_all(t_data *data);
-
 
 #endif

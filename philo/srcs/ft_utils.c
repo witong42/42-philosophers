@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:11:08 by witong            #+#    #+#             */
-/*   Updated: 2025/04/02 18:52:13 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/02 20:06:37 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	ft_atoi_safe(char *str)
 	}
 	return ((int)num);
 }
+
 void	free_all(t_data *data)
 {
 	int	i;

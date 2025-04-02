@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:52:27 by witong            #+#    #+#             */
-/*   Updated: 2025/04/02 18:51:45 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/02 20:06:19 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	init_philo(t_philo *philo, t_data *data, int i)
 int	init_philos(t_data *data)
 {
 	t_philo	*philos;
-	int	i;
+	int		i;
 
 	i = 0;
 	philos = malloc(sizeof(t_philo) * data->philo_count);

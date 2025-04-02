@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:52:17 by witong            #+#    #+#             */
-/*   Updated: 2025/04/02 13:35:47 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/02 20:07:11 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	sleeping(t_philo *philo)
 void	thinking(t_philo *philo)
 {
 	int	thinking;
-	int last_meal;
+	int	last_meal;
 
 	pthread_mutex_lock(philo->meals_lock);
 	last_meal = get_time() - philo->last_meal_time;

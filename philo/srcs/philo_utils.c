@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:52:58 by witong            #+#    #+#             */
-/*   Updated: 2025/04/02 12:55:56 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/02 20:07:23 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	get_time(void)
 {
 	struct timeval	time;
-	int	time_ms;
+	int				time_ms;
 
 	if (gettimeofday(&time, NULL) != 0)
 		return (ft_putstr_fd("Error with gettimeofday\n", 2), -1);

@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:10:53 by witong            #+#    #+#             */
-/*   Updated: 2025/04/01 22:52:42 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/02 20:06:57 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int ac, char **av)
 	if (init(&data) != 0)
 		return (free_all(&data), ft_putstr_fd("Initialization error.\n", 2), 1);
 	if (create_threads(&data) != 0)
-		return (free_all(&data), ft_putstr_fd("Threads creation error.\n", 2), 1);
+		return (free_all(&data), ft_putstr_fd("Threads create error.\n", 2), 1);
 	free_all(&data);
 	return (0);
 }
