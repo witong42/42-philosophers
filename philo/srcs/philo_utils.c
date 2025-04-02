@@ -1,13 +1,25 @@
-#include "philo.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/01 22:52:58 by witong            #+#    #+#             */
+/*   Updated: 2025/04/02 12:55:56 by witong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-long	get_time(void)
+#include "../includes/philo.h"
+
+int	get_time(void)
 {
-	struct timeval	current_time;
-	long	time_ms;
+	struct timeval	time;
+	int	time_ms;
 
-	if (gettimeofday(&current_time, NULL) != 0)
+	if (gettimeofday(&time, NULL) != 0)
 		return (ft_putstr_fd("Error with gettimeofday\n", 2), -1);
-	time_ms = (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
+	time_ms = (int)(time.tv_sec * 1000 + time.tv_usec / 1000);
 	return (time_ms);
 }
 
@@ -29,10 +41,15 @@ int	ft_usleep(t_philo *philo, int time)
 
 void	put_status(t_philo *philo, char *str)
 {
+	int		not_dead;
+	int		time;
+
 	pthread_mutex_lock(philo->write_lock);
+	time = get_time() - philo->base_time;
 	pthread_mutex_lock(philo->dead_lock);
-	if (*(philo->end) == 0)
-		printf("%ld %d %s\n", get_time() - philo->base_time, philo->id, str);
+	not_dead = (*(philo->end) == 0);
 	pthread_mutex_unlock(philo->dead_lock);
+	if (not_dead)
+		printf("%d %d %s\n", time, philo->id, str);
 	pthread_mutex_unlock(philo->write_lock);
 }

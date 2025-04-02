@@ -1,4 +1,16 @@
-#include "philo.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   actions.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/01 22:52:17 by witong            #+#    #+#             */
+/*   Updated: 2025/04/02 13:35:47 by witong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/philo.h"
 
 static void	pick_forks(t_philo *philo)
 {
@@ -21,11 +33,11 @@ static void	pick_forks(t_philo *philo)
 void	eating(t_philo *philo)
 {
 	pick_forks(philo);
-	put_status(philo, "is eating");
 	pthread_mutex_lock(philo->meals_lock);
 	philo->last_meal_time = get_time();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(philo->meals_lock);
+	put_status(philo, "is eating");
 	ft_usleep(philo, philo->time_to_eat);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
@@ -39,6 +51,17 @@ void	sleeping(t_philo *philo)
 
 void	thinking(t_philo *philo)
 {
+	int	thinking;
+	int last_meal;
+
+	pthread_mutex_lock(philo->meals_lock);
+	last_meal = get_time() - philo->last_meal_time;
+	pthread_mutex_unlock(philo->meals_lock);
 	put_status(philo, "is thinking");
-	ft_usleep(philo, 0);
+	thinking = philo->time_to_die - philo->time_to_eat - philo->time_to_sleep;
+	if (philo->time_to_die - last_meal <= 50 || thinking <= 10)
+		return ;
+	if (thinking > philo->time_to_eat)
+		thinking = philo->time_to_eat;
+	ft_usleep(philo, thinking);
 }

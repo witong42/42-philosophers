@@ -6,11 +6,11 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:10:53 by witong            #+#    #+#             */
-/*   Updated: 2025/04/01 14:19:23 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/01 22:52:42 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 int	parsing(t_data *data, char **av)
 {

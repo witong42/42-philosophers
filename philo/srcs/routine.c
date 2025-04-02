@@ -1,4 +1,16 @@
-#include "philo.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/01 22:53:05 by witong            #+#    #+#             */
+/*   Updated: 2025/04/02 14:17:32 by witong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/philo.h"
 
 static void	*handle_one_philo(t_philo *philo)
 {
@@ -17,10 +29,8 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->philo_count == 1)
 		return (handle_one_philo(philo));
-	if (philo->id % 3 == 0)
-		usleep(500);
-	if (philo->id % 2 == 0)
-		usleep(1000);
+	// if (philo->id % 2 == 0)
+	// 	thinking(philo);
 	while (1)
 	{
 		pthread_mutex_lock(philo->dead_lock);
@@ -31,7 +41,7 @@ void	*routine(void *arg)
 		eating(philo);
 		sleeping(philo);
 		thinking(philo);
-		usleep(200);
+		// ft_usleep(philo, 1);
 	}
 	return (NULL);
 }
