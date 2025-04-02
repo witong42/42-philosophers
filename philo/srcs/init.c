@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:52:27 by witong            #+#    #+#             */
-/*   Updated: 2025/04/02 13:35:09 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/02 18:51:45 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,18 @@ int	init(t_data *data)
 	data->threads_count = 0;
 	data->forks = NULL;
 	data->philos = NULL;
+	data->write_lock_init = 0;
+	data->meals_lock_init = 0;
+	data->dead_lock_init = 0;
 	if (pthread_mutex_init(&data->write_lock, NULL) != 0)
 		return (1);
+	data->write_lock_init = 1;
 	if (pthread_mutex_init(&data->meals_lock, NULL) != 0)
 		return (1);
+	data->meals_lock_init = 1;
 	if (pthread_mutex_init(&data->dead_lock, NULL) != 0)
 		return (1);
+	data->dead_lock_init = 1;
 	if (init_forks(data) != 0)
 		return (1);
 	if (init_philos(data) != 0)

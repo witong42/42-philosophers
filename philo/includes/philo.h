@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:23:37 by witong            #+#    #+#             */
-/*   Updated: 2025/04/02 13:35:15 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/02 18:51:20 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef struct s_data
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t meals_lock;
 	pthread_mutex_t dead_lock;
+	int				write_lock_init;
+	int				meals_lock_init;
+	int				dead_lock_init;
 	t_philo			*philos;
 }					t_data;
 

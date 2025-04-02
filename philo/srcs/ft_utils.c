@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:11:08 by witong            #+#    #+#             */
-/*   Updated: 2025/04/02 14:28:48 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/02 18:52:13 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,12 @@ void	free_all(t_data *data)
 {
 	int	i;
 
-	pthread_mutex_destroy(&data->write_lock);
-	pthread_mutex_destroy(&data->meals_lock);
-	pthread_mutex_destroy(&data->dead_lock);
+	if (data->write_lock_init)
+		pthread_mutex_destroy(&data->write_lock);
+	if (data->meals_lock_init)
+		pthread_mutex_destroy(&data->meals_lock);
+	if (data->dead_lock_init)
+		pthread_mutex_destroy(&data->dead_lock);
 	if (data->forks)
 	{
 		i = 0;
