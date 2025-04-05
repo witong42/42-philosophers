@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:53:05 by witong            #+#    #+#             */
-/*   Updated: 2025/04/02 20:08:18 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/05 12:46:33 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->philo_count == 1)
 		return (handle_one_philo(philo));
+	if (philo->id % 2 == 0)
+		ft_usleep(philo, 1);
 	while (1)
 	{
 		pthread_mutex_lock(philo->dead_lock);
