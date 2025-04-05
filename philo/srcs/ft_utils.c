@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:11:08 by witong            #+#    #+#             */
-/*   Updated: 2025/04/02 20:06:37 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/05 16:24:19 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ft_atoi_safe(char *str)
 	long	num;
 	int		i;
 
+	if (str[0] == '\0')
+		return(-1);
 	num = 0;
 	i = 0;
 	while (str[i])
