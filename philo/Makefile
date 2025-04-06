@@ -6,8 +6,12 @@ OBJS	= $(SRCS:%.c=%.o)
 CC		= cc
 CFLAGS	= -Wall -Werror -Wextra
 
-ifeq ($(debug), true)
-	CFLAGS += -fsanitize=thread,undefined -g3
+ifeq ($(debug1), true)
+	CFLAGS += -g3
+endif
+
+ifeq ($(debug2), true)
+	CFLAGS += -fsanitize=thread,undefined
 endif
 
 RM		= rm -f

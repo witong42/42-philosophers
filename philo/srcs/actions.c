@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:52:17 by witong            #+#    #+#             */
-/*   Updated: 2025/04/05 12:37:58 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/06 05:20:06 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	thinking(t_philo *philo)
 	int	thinking;
 
 	put_status(philo, "is thinking");
-	thinking = philo->time_to_die - philo->time_to_eat - philo->time_to_sleep;
+	thinking = philo->time_to_die - philo->time_to_eat \
+	- philo->time_to_sleep - 5;
 	if (thinking <= 10)
 		return ;
 	if (thinking > philo->time_to_eat)

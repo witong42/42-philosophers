@@ -6,7 +6,7 @@
 /*   By: witong <witong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:52:49 by witong            #+#    #+#             */
-/*   Updated: 2025/04/02 20:08:51 by witong           ###   ########.fr       */
+/*   Updated: 2025/04/05 20:24:39 by witong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	*monitoring(void *arg)
 	{
 		if (check_meals(data) || check_death(data))
 			break ;
-		usleep(100);
+		usleep(200);
 	}
 	return (NULL);
 }
